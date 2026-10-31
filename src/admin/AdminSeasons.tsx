@@ -151,6 +151,7 @@ export default function AdminSeasons() {
             moving={moving}
             onMove={(dir) => void move(i, dir)}
             onDelete={() => setToDelete(s)}
+            marked={toDelete?.id === s.id}
           />
         ))}
       </div>
@@ -338,7 +339,9 @@ function SeasonEditor({
   moving,
   onMove,
   onDelete,
+  marked = false,
 }: {
+  marked?: boolean
   season: Season
   first: boolean
   last: boolean
@@ -418,7 +421,7 @@ function SeasonEditor({
   }
 
   return (
-    <Panel className="overflow-hidden !p-0">
+    <Panel className={`overflow-hidden !p-0 transition-shadow duration-200 ${marked ? 'shadow-[0_0_0_3px_var(--danger)]' : ''}`}>
       <div
         id={`season-${season.id}`}
         data-field={season.id}

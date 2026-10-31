@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useId, useState, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { Loader2, X } from 'lucide-react'
 import { getBackend, type AdminUser, type Backend } from '../data/backend'
 import { useLang, type Bi } from '../i18n'
@@ -243,7 +244,8 @@ export function Confirm({
     return () => window.removeEventListener('keydown', k)
   }, [open, onClose])
   if (!open) return null
-  return (
+  // Portal to <body>: an animated/transformed parent must never trap the dialog inside the page.
+  return createPortal(
     <div className="fixed inset-0 z-[60] grid place-items-end bg-[rgb(10_9_30_/_0.5)] p-3 sm:place-items-center" onClick={onClose}>
       <div role="alertdialog" aria-modal="true" aria-label={title} className="enter w-full max-w-sm rounded-[28px] bg-[var(--chalk)] p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between gap-3">
@@ -262,7 +264,8 @@ export function Confirm({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 

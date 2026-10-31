@@ -88,7 +88,7 @@ function Editor({ slug, initial, allSlugs }: { slug?: string; initial: Draft; al
   const { lang } = useLang()
   const nav = useNavigate()
   const { backend } = useAdmin()
-  const { categories, seasons, reload } = useCatalog()
+  const { products, categories, seasons, reload } = useCatalog()
   const isNew = !slug
 
   const [draft, setDraft] = useState<Draft>(initial)
@@ -230,6 +230,8 @@ function Editor({ slug, initial, allSlugs }: { slug?: string; initial: Draft; al
       name: fill(draft.name),
       description: fill(draft.description),
       variants: (draft.variants ?? []).map(fill).filter((v) => v.en),
+      // new products go to the top of every list (lowest sort value)
+      sort: slug ? draft.sort : Math.min(0, ...products.map((p) => p.sort ?? 0)) - 1,
     }
 
     setSaving(true)

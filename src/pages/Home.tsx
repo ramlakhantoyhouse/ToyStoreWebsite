@@ -70,8 +70,10 @@ function useHeroItems(): HeroItem[] {
   if (lead) items.push({ key: `c-${lead.id}`, file: lead.image, label: lead.name, to: `/products?c=${lead.id}` })
   const usable = products.filter((p) => p.inStock !== false && p.images[0])
   // it's a toy house: popular toys & sports first, then other popular items, then the rest
-  const rank = (p: (typeof usable)[number]) => (p.featured ? 0 : 2) + (p.category === 'toys' || p.category === 'sports' ? 0 : 1)
-  const ordered = [...usable].sort((a, b) => rank(a) - rank(b))
+  // Popular products always come first (newest first, since new products get the lowest sort);
+  // toys & sports only break ties among the rest.
+  const rank = (p: (typeof usable)[number]) => (p.featured ? 0 : 2) + (p.featured || p.category === 'toys' || p.category === 'sports' ? 0 : 1)
+  const ordered = [...usable].sort((a, b) => rank(a) - rank(b) || (a.sort ?? 0) - (b.sort ?? 0))
   for (const p of ordered) {
     if (items.length >= heroSlots.length) break
     if (items.some((x) => x.file === p.images[0])) continue
