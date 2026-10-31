@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Copy, KeyRound, Megaphone, Phone, Store, Clock, CalendarOff } from 'lucide-react'
+import { Copy, KeyRound, Megaphone, Phone, Plus, Store, Clock, CalendarOff, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCatalog } from '../data/catalog'
 import { defaultSettings } from '../data/backend'
-import type { DayHours, Settings as ShopSettings } from '../data/types'
+import type { Contact, DayHours, Settings as ShopSettings } from '../data/types'
 import { useLang } from '../i18n'
 import { BiInput, PageHead, Panel, Spinner, TextInput, Toggle, useAdmin, useL, useUnsavedWarning } from './ui'
 
@@ -19,7 +19,7 @@ const local10 = (s: string) => {
 }
 const validMobile = (d: string) => /^[6-9]\d{9}$/.test(d)
 
-type Form = { phone: string; whatsapp: string; hours: DayHours[]; holiday: ShopSettings['holiday']; banner: ShopSettings['banner'] }
+type Form = { phone: string; whatsapp: string; hours: DayHours[]; holiday: ShopSettings['holiday']; banner: ShopSettings['banner']; contacts: Contact[] }
 
 function toForm(s: ShopSettings): Form {
   const fallback = defaultSettings().hours
@@ -29,6 +29,7 @@ function toForm(s: ShopSettings): Form {
     hours: DAY_ORDER.map((dow) => ({ ...(s.hours.find((h) => h.dow === dow) ?? fallback.find((h) => h.dow === dow) ?? { dow, open: '09:00', close: '21:00' }) })),
     holiday: { on: s.holiday.on, text: { ...s.holiday.text } },
     banner: { on: s.banner.on, text: { ...s.banner.text } },
+    contacts: (s.contacts ?? []).map((c) => ({ ...c, name: { ...c.name } })),
   }
 }
 
@@ -62,6 +63,14 @@ function SettingsForm({ initial }: { initial: ShopSettings }) {
 
   const phoneErr = !validMobile(form.phone) ? L('Enter a 10-digit mobile number, e.g. 9540528086', '10 अंकों का मोबाइल नंबर लिखें, जैसे 9540528086') : ''
   const waErr = !validMobile(form.whatsapp) ? L('Enter the 10-digit WhatsApp number', '10 अंकों का व्हाट्सऐप नंबर लिखें') : ''
+  const contactErr = (c: Contact) =>
+    !validMobile(c.phone)
+      ? L('Enter a 10-digit number', '10 अंकों का नंबर लिखें')
+      : !c.call && !c.whatsapp
+        ? L('Turn on Call, WhatsApp or both', 'कॉल, व्हाट्सऐप या दोनों चालू करें')
+        : ''
+  const setContact = (i: number, patch: Partial<Contact>) =>
+    setForm((f) => ({ ...f, contacts: f.contacts.map((c, j) => (j === i ? { ...c, ...patch } : c)) }))
   const badHours = form.hours.filter((h) => !h.closed && (!h.open || !h.close || h.close <= h.open)).map((h) => h.dow)
 
   function copyMonday() {
@@ -73,7 +82,7 @@ function SettingsForm({ initial }: { initial: ShopSettings }) {
 
   async function save() {
     setTried(true)
-    if (phoneErr || waErr) {
+    if (phoneErr || waErr || form.contacts.some((c) => contactErr(c))) {
       toast.error(L('Please fix the phone numbers first.', 'पहले फ़ोन नंबर ठीक करें।'))
       return
     }
@@ -92,6 +101,7 @@ function SettingsForm({ initial }: { initial: ShopSettings }) {
       hours: form.hours,
       holiday: { on: form.holiday.on, text: { en: form.holiday.text.en.trim(), hi: form.holiday.text.hi.trim() } },
       banner: { on: form.banner.on, text: { en: form.banner.text.en.trim(), hi: form.banner.text.hi.trim() } },
+      contacts: form.contacts.map((c) => ({ ...c, name: { en: c.name.en.trim(), hi: c.name.hi.trim() } })),
     }
     setSaving(true)
     try {
@@ -126,6 +136,59 @@ function SettingsForm({ initial }: { initial: ShopSettings }) {
               {L('Use the phone number for WhatsApp too', 'व्हाट्सऐप के लिए भी यही नंबर रखें')}
             </button>
           )}
+
+          {/* extra numbers */}
+          <div className="mt-6 border-t-2 border-[var(--chalk)] pt-5">
+            <p className="text-[15.5px] font-semibold">{L('More contact numbers', 'और संपर्क नंबर')}</p>
+            <p className="ink-2 mt-1 text-[14px]">
+              {L('Add as many as you like. Each shows on the website with a Call and/or WhatsApp button.', 'जितने चाहें उतने जोड़ें। हर नंबर वेबसाइट पर कॉल और/या व्हाट्सऐप बटन के साथ दिखेगा।')}
+            </p>
+            <ul className="m-0 mt-4 grid list-none gap-3 p-0">
+              {form.contacts.map((c, i) => {
+                const err = tried || c.phone.length === 10 ? contactErr(c) : ''
+                return (
+                  <li key={i} className="rounded-[18px] bg-[var(--chalk)] p-4">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <TextInput
+                        label={L('Name', 'नाम')}
+                        hint={L('e.g. Shop, Ramesh ji', 'जैसे दुकान, रमेश जी')}
+                        value={c.name.en}
+                        onChange={(en) => setContact(i, { name: { en, hi: c.name.hi } })}
+                      />
+                      <PhoneField label={L('Number', 'नंबर')} value={c.phone} onChange={(phone) => setContact(i, { phone })} error={err} />
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                      {(['call', 'whatsapp'] as const).map((k) => (
+                        <button
+                          key={k}
+                          type="button"
+                          aria-pressed={c[k]}
+                          onClick={() => setContact(i, { [k]: !c[k] })}
+                          className="chip press"
+                        >
+                          {k === 'call' ? L('Call', 'कॉल') : 'WhatsApp'}
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => setForm((f) => ({ ...f, contacts: f.contacts.filter((_, j) => j !== i) }))}
+                        className="press ml-auto flex min-h-11 cursor-pointer items-center gap-2 rounded-full border-0 bg-transparent px-3 text-[14px] font-semibold text-[var(--danger)]"
+                      >
+                        <Trash2 className="size-4" /> {L('Remove', 'हटाएँ')}
+                      </button>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+            <button
+              type="button"
+              onClick={() => setForm((f) => ({ ...f, contacts: [...f.contacts, { name: { en: '', hi: '' }, phone: '', call: true, whatsapp: true }] }))}
+              className="btn btn-line press mt-4"
+            >
+              <Plus className="size-5" /> {L('Add contact', 'नंबर जोड़ें')}
+            </button>
+          </div>
         </Panel>
 
         {/* 2. hours */}

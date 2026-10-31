@@ -5,6 +5,7 @@ import { useShop } from '../lib/useShop'
 import { FieldSection } from '../components/Field'
 import { WhatsAppIcon } from '../components/Icons'
 import { MapFrame } from '../components/MapFrame'
+import { ContactList } from '../components/ContactList'
 import { usePageTitle } from '../lib/usePageTitle'
 
 const D = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
@@ -44,6 +45,8 @@ export function Visit() {
               <WhatsAppIcon /> {t('wa_us')}
             </a>
           </div>
+
+          <ContactList className="enter mt-10 max-w-xl" />
 
           <div className="reveal mt-14">
             <h2 className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[clamp(1.6rem,2.6vw,2.2rem)] font-bold tracking-[-0.045em]">

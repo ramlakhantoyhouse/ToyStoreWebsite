@@ -4,6 +4,7 @@ import { shop } from '../config/shop'
 import { useShop } from '../lib/useShop'
 import { Logo } from './Logo'
 import { FieldSection } from './Field'
+import { ContactList } from './ContactList'
 
 export function Footer() {
   const { t } = useLang()
@@ -38,6 +39,7 @@ export function Footer() {
                 WhatsApp
               </a>
             </p>
+            <ContactList compact className="mt-4" />
           </div>
           <nav className="grid content-start gap-1.5 text-[15px]" aria-label="Footer">
             <Link to="/products" viewTransition className={linkCls}>{t('nav_shop')}</Link>

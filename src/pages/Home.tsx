@@ -14,6 +14,7 @@ import { Tilt } from '../components/Tilt'
 import { MapFrame } from '../components/MapFrame'
 import { WhatsAppIcon } from '../components/Icons'
 import { EnquiryDrawer } from '../components/EnquiryDrawer'
+import { ContactList } from '../components/ContactList'
 import { usePageTitle } from '../lib/usePageTitle'
 
 const D = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
@@ -401,6 +402,7 @@ function Visit() {
             <WhatsAppIcon /> WhatsApp
           </a>
         </div>
+        <ContactList className="mt-9 max-w-xl" />
       </div>
       <div className="reveal">
         <MapFrame />

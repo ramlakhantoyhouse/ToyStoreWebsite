@@ -43,6 +43,15 @@ export function useShop() {
     dow,
     todayHours: fmtHours(hoursFor(settings, dow), lang),
     summary: hoursSummary(settings, lang),
+    /** extra numbers the owner added in /admin → Shop settings */
+    contacts: (settings.contacts ?? [])
+      .filter((c) => /^[6-9]\d{9}$/.test(c.phone) && (c.call || c.whatsapp))
+      .map((c) => ({
+        name: c.name[lang] || c.name.en,
+        phoneDisplay: fmtPhone(`+91${c.phone}`),
+        tel: c.call ? telLink(`+91${c.phone}`) : null,
+        wa: c.whatsapp ? waLink(`91${c.phone}`) : null,
+      })),
     week: WEEK.map((d) => ({ dow: d, day: dayName(d, lang), hours: fmtHours(hoursFor(settings, d), lang) })),
   }
 }

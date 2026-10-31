@@ -11,12 +11,21 @@ export type DayHours = {
   closed?: boolean
 }
 
+/** An extra number customers can call and/or WhatsApp (shown on the website). */
+export type Contact = {
+  name: Bi // e.g. "Shop", "Ramesh ji"
+  phone: string // 10 digits, no +91
+  call: boolean
+  whatsapp: boolean
+}
+
 export type Settings = {
   phone: string // "+919540528086"
   whatsapp: string // "919540528086"
   hours: DayHours[]
   holiday: { on: boolean; text: Bi } // "Shop closed today" notice
   banner: { on: boolean; text: Bi } // home page announcement
+  contacts?: Contact[] // extra numbers beyond the main phone/WhatsApp
 }
 
 export type EnquiryStatus = 'new' | 'called' | 'done'
