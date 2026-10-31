@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T19:11:13.740Z",
+  "title": "Design System: Ram Lakhan Patang House",
+  "extensions": {
+    "colorMeta": {
+      "sky-0": {
+        "role": "neutral",
+        "displayName": "Morning Sky",
+        "canonical": "#f3fbfc",
+        "dark": "#0d1238",
+        "tonalRamp": [
+          "oklch(15% 0.009 205.9)",
+          "oklch(26% 0.009 205.9)",
+          "oklch(37% 0.009 205.9)",
+          "oklch(48% 0.009 205.9)",
+          "oklch(59% 0.009 205.9)",
+          "oklch(70% 0.009 205.9)",
+          "oklch(82% 0.009 205.9)",
+          "oklch(95% 0.003 205.9)"
+        ]
+      },
+      "sky-1": {
+        "role": "neutral",
+        "displayName": "Clear Sky",
+        "canonical": "#e1f5f8",
+        "dark": "#141b4d",
+        "tonalRamp": [
+          "oklch(15% 0.021 207.6)",
+          "oklch(26% 0.021 207.6)",
+          "oklch(37% 0.021 207.6)",
+          "oklch(48% 0.021 207.6)",
+          "oklch(59% 0.021 207.6)",
+          "oklch(70% 0.021 207.6)",
+          "oklch(82% 0.021 207.6)",
+          "oklch(95% 0.009 207.6)"
+        ]
+      },
+      "sky-2": {
+        "role": "neutral",
+        "displayName": "Horizon Aqua",
+        "canonical": "#bfe9ef",
+        "dark": "#1c2563",
+        "tonalRamp": [
+          "oklch(15% 0.044 207.0)",
+          "oklch(26% 0.044 207.0)",
+          "oklch(37% 0.044 207.0)",
+          "oklch(48% 0.044 207.0)",
+          "oklch(59% 0.044 207.0)",
+          "oklch(70% 0.044 207.0)",
+          "oklch(82% 0.044 207.0)",
+          "oklch(95% 0.018 207.0)"
+        ]
+      },
+      "wave-1": {
+        "role": "neutral",
+        "displayName": "Wave Shallows",
+        "canonical": "#7fd6e0",
+        "dark": "#1f2f78",
+        "tonalRamp": [
+          "oklch(15% 0.085 205.1)",
+          "oklch(26% 0.085 205.1)",
+          "oklch(37% 0.085 205.1)",
+          "oklch(48% 0.085 205.1)",
+          "oklch(59% 0.085 205.1)",
+          "oklch(70% 0.085 205.1)",
+          "oklch(82% 0.085 205.1)",
+          "oklch(95% 0.034 205.1)"
+        ]
+      },
+      "wave-2": {
+        "role": "neutral",
+        "displayName": "Wave Mid",
+        "canonical": "#3fb8c9",
+        "dark": "#1d4a86",
+        "tonalRamp": [
+          "oklch(15% 0.107 208.5)",
+          "oklch(26% 0.107 208.5)",
+          "oklch(37% 0.107 208.5)",
+          "oklch(48% 0.107 208.5)",
+          "oklch(59% 0.107 208.5)",
+          "oklch(70% 0.107 208.5)",
+          "oklch(82% 0.107 208.5)",
+          "oklch(95% 0.043 208.5)"
+        ]
+      },
+      "wave-3": {
+        "role": "neutral",
+        "displayName": "Wave Deep",
+        "canonical": "#1592a8",
+        "dark": "#176a90",
+        "tonalRamp": [
+          "oklch(15% 0.103 213.8)",
+          "oklch(26% 0.103 213.8)",
+          "oklch(37% 0.103 213.8)",
+          "oklch(48% 0.103 213.8)",
+          "oklch(59% 0.103 213.8)",
+          "oklch(70% 0.103 213.8)",
+          "oklch(82% 0.103 213.8)",
+          "oklch(95% 0.041 213.8)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff",
+        "dark": "#161d52",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(26% 0.000 89.9)",
+          "oklch(37% 0.000 89.9)",
+          "oklch(48% 0.000 89.9)",
+          "oklch(59% 0.000 89.9)",
+          "oklch(70% 0.000 89.9)",
+          "oklch(82% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Pale Lagoon",
+        "canonical": "#f0f9fa",
+        "dark": "#1c2460",
+        "tonalRamp": [
+          "oklch(15% 0.010 204.9)",
+          "oklch(26% 0.010 204.9)",
+          "oklch(37% 0.010 204.9)",
+          "oklch(48% 0.010 204.9)",
+          "oklch(59% 0.010 204.9)",
+          "oklch(70% 0.010 204.9)",
+          "oklch(82% 0.010 204.9)",
+          "oklch(95% 0.004 204.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Night Navy Ink",
+        "canonical": "#0b2a4a",
+        "dark": "#eaf6fa",
+        "tonalRamp": [
+          "oklch(15% 0.069 252.3)",
+          "oklch(26% 0.069 252.3)",
+          "oklch(37% 0.069 252.3)",
+          "oklch(48% 0.069 252.3)",
+          "oklch(59% 0.069 252.3)",
+          "oklch(70% 0.069 252.3)",
+          "oklch(82% 0.069 252.3)",
+          "oklch(95% 0.028 252.3)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Slate Teal",
+        "canonical": "#33586b",
+        "dark": "#a9cbd8",
+        "tonalRamp": [
+          "oklch(15% 0.053 232.1)",
+          "oklch(26% 0.053 232.1)",
+          "oklch(37% 0.053 232.1)",
+          "oklch(48% 0.053 232.1)",
+          "oklch(59% 0.053 232.1)",
+          "oklch(70% 0.053 232.1)",
+          "oklch(82% 0.053 232.1)",
+          "oklch(95% 0.021 232.1)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Mist Slate",
+        "canonical": "#4b6a78",
+        "dark": "#93b4c4",
+        "tonalRamp": [
+          "oklch(15% 0.042 227.7)",
+          "oklch(26% 0.042 227.7)",
+          "oklch(37% 0.042 227.7)",
+          "oklch(48% 0.042 227.7)",
+          "oklch(59% 0.042 227.7)",
+          "oklch(70% 0.042 227.7)",
+          "oklch(82% 0.042 227.7)",
+          "oklch(95% 0.017 227.7)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Aqua Rule",
+        "canonical": "#cfe6ea",
+        "dark": "#2b3577",
+        "tonalRamp": [
+          "oklch(15% 0.025 209.3)",
+          "oklch(26% 0.025 209.3)",
+          "oklch(37% 0.025 209.3)",
+          "oklch(48% 0.025 209.3)",
+          "oklch(59% 0.025 209.3)",
+          "oklch(70% 0.025 209.3)",
+          "oklch(82% 0.025 209.3)",
+          "oklch(95% 0.010 209.3)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Deep Lagoon Teal",
+        "canonical": "#0b6f7c",
+        "dark": "#5fd3dc",
+        "tonalRamp": [
+          "oklch(15% 0.083 209.3)",
+          "oklch(26% 0.083 209.3)",
+          "oklch(37% 0.083 209.3)",
+          "oklch(48% 0.083 209.3)",
+          "oklch(59% 0.083 209.3)",
+          "oklch(70% 0.083 209.3)",
+          "oklch(82% 0.083 209.3)",
+          "oklch(95% 0.033 209.3)"
+        ]
+      },
+      "primary-ink": {
+        "role": "primary",
+        "displayName": "Primary Ink",
+        "canonical": "#ffffff",
+        "dark": "#04242c",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(26% 0.000 89.9)",
+          "oklch(37% 0.000 89.9)",
+          "oklch(48% 0.000 89.9)",
+          "oklch(59% 0.000 89.9)",
+          "oklch(70% 0.000 89.9)",
+          "oklch(82% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "manjha": {
+        "role": "primary",
+        "displayName": "Manjha Vermilion",
+        "canonical": "#c8401a",
+        "dark": "#ff7a4d",
+        "tonalRamp": [
+          "oklch(15% 0.179 35.5)",
+          "oklch(26% 0.179 35.5)",
+          "oklch(37% 0.179 35.5)",
+          "oklch(48% 0.179 35.5)",
+          "oklch(59% 0.179 35.5)",
+          "oklch(70% 0.179 35.5)",
+          "oklch(82% 0.179 35.5)",
+          "oklch(95% 0.072 35.5)"
+        ]
+      },
+      "kite-red": {
+        "role": "tertiary",
+        "displayName": "Kite Red",
+        "canonical": "#e0402f",
+        "dark": "#ff5a47",
+        "tonalRamp": [
+          "oklch(15% 0.199 30.0)",
+          "oklch(26% 0.199 30.0)",
+          "oklch(37% 0.199 30.0)",
+          "oklch(48% 0.199 30.0)",
+          "oklch(59% 0.199 30.0)",
+          "oklch(70% 0.199 30.0)",
+          "oklch(82% 0.199 30.0)",
+          "oklch(95% 0.080 30.0)"
+        ]
+      },
+      "kite-blue": {
+        "role": "tertiary",
+        "displayName": "Kite Blue",
+        "canonical": "#1f5fd6",
+        "dark": "#5b8cff",
+        "tonalRamp": [
+          "oklch(15% 0.194 261.5)",
+          "oklch(26% 0.194 261.5)",
+          "oklch(37% 0.194 261.5)",
+          "oklch(48% 0.194 261.5)",
+          "oklch(59% 0.194 261.5)",
+          "oklch(70% 0.194 261.5)",
+          "oklch(82% 0.194 261.5)",
+          "oklch(95% 0.078 261.5)"
+        ]
+      },
+      "kite-marigold": {
+        "role": "tertiary",
+        "displayName": "Kite Marigold",
+        "canonical": "#f2a516",
+        "dark": "#ffbf3c",
+        "tonalRamp": [
+          "oklch(15% 0.160 74.5)",
+          "oklch(26% 0.160 74.5)",
+          "oklch(37% 0.160 74.5)",
+          "oklch(48% 0.160 74.5)",
+          "oklch(59% 0.160 74.5)",
+          "oklch(70% 0.160 74.5)",
+          "oklch(82% 0.160 74.5)",
+          "oklch(95% 0.064 74.5)"
+        ]
+      },
+      "kite-green": {
+        "role": "tertiary",
+        "displayName": "Kite Green",
+        "canonical": "#2f9e44",
+        "dark": "#4cc768",
+        "tonalRamp": [
+          "oklch(15% 0.162 146.4)",
+          "oklch(26% 0.162 146.4)",
+          "oklch(37% 0.162 146.4)",
+          "oklch(48% 0.162 146.4)",
+          "oklch(59% 0.162 146.4)",
+          "oklch(70% 0.162 146.4)",
+          "oklch(82% 0.162 146.4)",
+          "oklch(95% 0.065 146.4)"
+        ]
+      },
+      "kite-pink": {
+        "role": "tertiary",
+        "displayName": "Kite Pink",
+        "canonical": "#e2477d",
+        "dark": "#ff6fa0",
+        "tonalRamp": [
+          "oklch(15% 0.195 3.4)",
+          "oklch(26% 0.195 3.4)",
+          "oklch(37% 0.195 3.4)",
+          "oklch(48% 0.195 3.4)",
+          "oklch(59% 0.195 3.4)",
+          "oklch(70% 0.195 3.4)",
+          "oklch(82% 0.195 3.4)",
+          "oklch(95% 0.078 3.4)"
+        ]
+      },
+      "wa": {
+        "role": "secondary",
+        "displayName": "WhatsApp Green",
+        "canonical": "#25d366",
+        "dark": "#25d366",
+        "tonalRamp": [
+          "oklch(15% 0.200 149.7)",
+          "oklch(26% 0.200 149.7)",
+          "oklch(37% 0.200 149.7)",
+          "oklch(48% 0.200 149.7)",
+          "oklch(59% 0.200 149.7)",
+          "oklch(70% 0.200 149.7)",
+          "oklch(82% 0.200 149.7)",
+          "oklch(95% 0.080 149.7)"
+        ]
+      },
+      "wa-ink": {
+        "role": "secondary",
+        "displayName": "Bottle-Green Ink",
+        "canonical": "#04301a",
+        "dark": "#04301a",
+        "tonalRamp": [
+          "oklch(15% 0.062 156.2)",
+          "oklch(26% 0.062 156.2)",
+          "oklch(37% 0.062 156.2)",
+          "oklch(48% 0.062 156.2)",
+          "oklch(59% 0.062 156.2)",
+          "oklch(70% 0.062 156.2)",
+          "oklch(82% 0.062 156.2)",
+          "oklch(95% 0.025 156.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only; navy first half, teal second half."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "List item headings and the enquiry sheet title."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; lead paragraphs 15.5px on phones, 1.125rem from 640px, capped at 34-36rem."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Category names, field errors, hints, the status chip."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sky-float",
+        "value": "0 1px 2px rgb(11 42 74 / 0.06), 0 8px 24px -8px rgb(11 42 74 / 0.18)",
+        "dark": "0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -10px rgb(0 0 0 / 0.55)",
+        "purpose": "Every floating surface: cards, tags, kite labels, active nav pill, status chip, mobile menu. Token: var(--shadow)."
+      },
+      {
+        "name": "whatsapp-glow",
+        "value": "0 6px 18px -6px rgb(37 211 102 / 0.55)",
+        "purpose": "WhatsApp button only."
+      },
+      {
+        "name": "kite-drop",
+        "value": "drop-shadow(0 6px 8px rgb(11 42 74 / 0.18))",
+        "purpose": "filter on hanging kite silhouettes."
+      },
+      {
+        "name": "field-focus-halo",
+        "value": "0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent)",
+        "purpose": "Inputs on focus."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Presses, entrances, string draw, kite tug."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Two-way state transitions."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Enquiry drawer."
+      },
+      {
+        "name": "press",
+        "value": "transform 160ms ease-out; scale(0.97) on :active",
+        "purpose": "Every pressable."
+      },
+      {
+        "name": "rise",
+        "value": "520ms ease-out; opacity 0.4 to 1, translateY 10px; staggered by --d",
+        "purpose": "Entrances; never starts invisible."
+      },
+      {
+        "name": "string-draw",
+        "value": "1100ms ease-out, 120ms delay; stroke-dashoffset 1 to 0",
+        "purpose": "Manjha draws in once."
+      },
+      {
+        "name": "sway",
+        "value": "4-7s ease-in-out infinite alternate; rotate 1.4-4deg each way from top centre",
+        "purpose": "Hanging kites and tags."
+      },
+      {
+        "name": "tug",
+        "value": "1100ms damped rotation (s, -0.57s, 0.28s, -0.1s, 0), 450ms cooldown",
+        "purpose": "Pointer pass, press, or brisk scroll."
+      },
+      {
+        "name": "wave-drift",
+        "value": "18s / 26s reverse / 38s linear infinite; translateX -50%",
+        "purpose": "Sky wave layers."
+      },
+      {
+        "name": "twinkle",
+        "value": "4s ease-in-out infinite; opacity 0.25 to 1",
+        "purpose": "Night stars."
+      },
+      {
+        "name": "theme-crossfade",
+        "value": "280ms colour-only transitions while toggling",
+        "purpose": "Light/dark switch."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-wide",
+        "value": "420px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "string-bleed",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "WhatsApp Button",
+      "kind": "button",
+      "refersTo": "button-wa",
+      "description": "Primary contact action on every page; full width at thumb reach on phones.",
+      "html": "<button class=\"ds-btn ds-btn-wa\">WhatsApp us</button>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:48px;padding:0 1.25rem;border-radius:999px;font-family:Poppins,ui-sans-serif,system-ui,sans-serif;font-weight:600;font-size:.98rem;border:0;cursor:pointer;white-space:nowrap;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 200ms ease,box-shadow 200ms ease}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2.5px solid var(--primary);outline-offset:3px}.ds-btn-wa{background:var(--wa);color:var(--wa-ink);box-shadow:0 6px 18px -6px rgb(37 211 102 / .55)}.ds-btn-wa:hover{background:#2ee06f}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Teal action: directions, call-back, page-level actions.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Get directions</button>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:48px;padding:0 1.25rem;border-radius:999px;font-family:Poppins,ui-sans-serif,system-ui,sans-serif;font-weight:600;font-size:.98rem;border:0;cursor:pointer;white-space:nowrap;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 200ms ease,box-shadow 200ms ease}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2.5px solid var(--primary);outline-offset:3px}.ds-btn-primary{background:var(--primary);color:var(--primary-ink)}.ds-btn-primary:hover{filter:brightness(1.08)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Call and secondary actions, paired beside WhatsApp or primary.",
+      "html": "<button class=\"ds-btn ds-btn-ghost\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z\"/></svg> Call</button>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:48px;padding:0 1.25rem;border-radius:999px;font-family:Poppins,ui-sans-serif,system-ui,sans-serif;font-weight:600;font-size:.98rem;border:0;cursor:pointer;white-space:nowrap;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 200ms ease,box-shadow 200ms ease}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2.5px solid var(--primary);outline-offset:3px}.ds-btn-ghost{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}.ds-btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--primary)}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Enquiry and wholesale form input with label above and kite-red error.",
+      "html": "<label class=\"ds-field-wrap\"><span class=\"ds-label\">Your name</span><input class=\"ds-field\" placeholder=\"Name\"></label>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-field-wrap{display:block;max-width:320px}.ds-label{display:block;margin-bottom:6px;font-size:14px;font-weight:500;color:var(--ink)}.ds-field{width:100%;box-sizing:border-box;min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:.7rem .95rem;font:inherit;caret-color:var(--manjha);transition:border-color 160ms ease,box-shadow 160ms ease}.ds-field::placeholder{color:var(--ink-3)}.ds-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 18%,transparent)}.ds-field[aria-invalid=true]{border-color:var(--kite-red)}"
+    },
+    {
+      "name": "Nav Pills",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "Desktop header navigation; the active link floats as a white pill.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-active\" href=\"#\">Home</a><a class=\"ds-nav-link\" href=\"#\">Products</a><a class=\"ds-nav-link\" href=\"#\">Wholesale</a><a class=\"ds-nav-link\" href=\"#\">Visit us</a></nav>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-nav{display:flex;gap:4px;padding:8px;background:var(--sky-0)}.ds-nav-link{border-radius:999px;padding:8px 16px;font-size:15px;font-weight:500;text-decoration:none;color:var(--ink-2);transition:transform 160ms var(--ease-out),color 200ms ease}.ds-nav-link:hover{color:var(--ink)}.ds-nav-link:active{transform:scale(.97)}.ds-nav-link:focus-visible{outline:2.5px solid var(--primary);outline-offset:3px}.ds-active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "Catalog grid item: tinted square art tile, title, category kite mark.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-tile\"><svg viewBox=\"0 0 64 76\" class=\"ds-art\"><path d=\"M32 2 L62 34 L32 74 L2 34 Z\" fill=\"#e0402f\"/><path d=\"M32 2 L62 34 L32 34 Z\" fill=\"#fff\" opacity=\".28\"/><path d=\"M32 2 V74 M2 34 Q32 24 62 34\" stroke=\"rgb(60 35 10 / .55)\" stroke-width=\"1.6\" fill=\"none\"/></svg></span><span class=\"ds-body\"><span class=\"ds-title\">Paper Patang, Medium</span><span class=\"ds-cat\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\"><path d=\"M6 0 L11 5 L6 12 L1 5 Z\" fill=\"#e0402f\"/><path d=\"M6 0 V12 M1 5 H11\" stroke=\"rgb(0 0 0 / 0.18)\" stroke-width=\"0.8\"/></svg> Kites</span></span></a>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-card{display:flex;flex-direction:column;width:200px;overflow:hidden;border-radius:22px;background:var(--surface);box-shadow:var(--shadow),0 0 0 1px var(--line);text-decoration:none;transition:transform 160ms var(--ease-out)}.ds-card:active{transform:scale(.97)}.ds-card:focus-visible{outline:2.5px solid var(--primary);outline-offset:3px}.ds-tile{display:grid;place-items:center;aspect-ratio:1;background:color-mix(in srgb,#e0402f 12%,var(--surface-2))}.ds-art{width:60%;transition:transform 300ms var(--ease-out)}.ds-card:hover .ds-art{transform:translateY(-4px) rotate(-3deg)}.ds-body{display:flex;flex-direction:column;gap:4px;padding:12px 14px 14px}.ds-title{font-size:15px;font-weight:600;line-height:1.35;color:var(--ink)}.ds-cat{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink-2)}"
+    },
+    {
+      "name": "Hanging Kites on Manjha",
+      "kind": "custom",
+      "description": "Signature: category kites hanging from a sagging vermilion string, swaying and dipping on press.",
+      "html": "<div class=\"ds-ceiling\"><svg class=\"ds-string\" viewBox=\"0 0 360 40\" preserveAspectRatio=\"none\"><path d=\"M0 8 Q180 60 360 8\" stroke=\"var(--manjha)\" stroke-width=\"1.6\" fill=\"none\"/></svg><ul class=\"ds-row\"><li style=\"padding-top:20px\"><a class=\"ds-kite\" href=\"#\" style=\"--dur:4.2s\"><span class=\"ds-drop\" style=\"height:14px\"></span><svg viewBox=\"0 0 64 76\" class=\"ds-k\"><path d=\"M32 2 L62 34 L32 74 L2 34 Z\" fill=\"#f2a516\"/><path d=\"M32 2 L62 34 L32 34 Z\" fill=\"#fff\" opacity=\".28\"/><path d=\"M32 2 V74 M2 34 Q32 24 62 34\" stroke=\"rgb(60 35 10 / .55)\" stroke-width=\"1.6\" fill=\"none\"/></svg><span class=\"ds-lbl\">Kites</span></a></li><li style=\"padding-top:32px\"><a class=\"ds-kite\" href=\"#\" style=\"--dur:5.1s\"><span class=\"ds-drop\" style=\"height:22px\"></span><svg viewBox=\"0 0 64 76\" class=\"ds-k\"><path d=\"M32 2 L62 34 L32 74 L2 34 Z\" fill=\"#1f5fd6\"/><path d=\"M32 2 L62 34 L32 34 Z\" fill=\"#fff\" opacity=\".28\"/><path d=\"M32 2 V74 M2 34 Q32 24 62 34\" stroke=\"rgb(60 35 10 / .55)\" stroke-width=\"1.6\" fill=\"none\"/></svg><span class=\"ds-lbl\">Manjha</span></a></li><li style=\"padding-top:20px\"><a class=\"ds-kite\" href=\"#\" style=\"--dur:6s\"><span class=\"ds-drop\" style=\"height:30px\"></span><svg viewBox=\"0 0 64 76\" class=\"ds-k\"><path d=\"M32 2 L62 34 L32 74 L2 34 Z\" fill=\"#2f9e44\"/><path d=\"M32 2 L62 34 L32 34 Z\" fill=\"#fff\" opacity=\".28\"/><path d=\"M32 2 V74 M2 34 Q32 24 62 34\" stroke=\"rgb(60 35 10 / .55)\" stroke-width=\"1.6\" fill=\"none\"/></svg><span class=\"ds-lbl\">Toys</span></a></li></ul></div>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-ceiling{position:relative;width:360px;padding-bottom:16px;background:linear-gradient(180deg,var(--sky-0),var(--sky-1))}.ds-string{position:absolute;top:0;left:0;width:100%;height:40px}.ds-row{position:relative;display:flex;justify-content:space-around;margin:0;padding:0;list-style:none}.ds-kite{display:flex;flex-direction:column;align-items:center;text-decoration:none;transform-origin:50% 0;animation:ds-sway var(--dur) ease-in-out infinite alternate}.ds-drop{display:block;width:1px;background:var(--manjha);opacity:.7}.ds-k{width:52px;height:62px;filter:drop-shadow(0 6px 8px rgb(11 42 74 / .18));transition:transform 220ms var(--ease-out)}.ds-kite:hover .ds-k{transform:translateY(3px) scale(1.04)}.ds-kite:active .ds-k{transform:translateY(4px) scale(.97)}.ds-kite:focus-visible{outline:none}.ds-kite:focus-visible .ds-k{outline:2px solid var(--primary);outline-offset:4px}.ds-lbl{margin-top:6px;border-radius:999px;background:var(--surface);padding:2px 10px;font-size:12.5px;font-weight:600;line-height:20px;color:var(--ink);box-shadow:var(--shadow)}@keyframes ds-sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}@media (prefers-reduced-motion:reduce){.ds-kite{animation:none}}"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "description": "Live open/closed state with the real hours; used only for live shop state.",
+      "html": "<p class=\"ds-chip\"><span class=\"ds-dot\"></span>Open now · 10 AM – 9 PM, all days</p>",
+      "css": ":host{--sky-0:#f3fbfc;--sky-1:#e1f5f8;--surface:#fff;--surface-2:#f0f9fa;--ink:#0b2a4a;--ink-2:#33586b;--ink-3:#4b6a78;--line:#cfe6ea;--primary:#0b6f7c;--primary-ink:#fff;--manjha:#c8401a;--kite-red:#e0402f;--kite-green:#2f9e44;--kite-marigold:#f2a516;--wa:#25d366;--wa-ink:#04301a;--shadow:0 1px 2px rgb(11 42 74 / 0.06),0 8px 24px -8px rgb(11 42 74 / 0.18);--ease-out:cubic-bezier(0.23,1,0.32,1);font-family:Poppins,ui-sans-serif,system-ui,sans-serif}.ds-chip{display:inline-flex;align-items:center;gap:8px;margin:0;border-radius:999px;background:var(--surface);padding:4px 12px;font-size:13px;font-weight:600;color:var(--ink);box-shadow:var(--shadow)}.ds-dot{width:8px;height:8px;border-radius:50%;background:var(--kite-green)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shop Ceiling on Festival Week",
+    "overview": "The site is the inside of a kite shop in the days before Makar Sankranti: kites hung on taut manjha strings, swaying over an aqua sky lifted from the shop's visiting card. Grounds are a vertical sky gradient with three drifting SVG wave layers at the foot; content sits on white cards and pill controls that float in that sky. Deep navy carries the text, a single teal carries action, and the kite-paper colours (red, blue, marigold, green, pink) appear only where something is a kite or marks a kite's category.\n\nOne structural line runs through the whole world: the manjha, a thin vermilion string (1.6px) that sags in a quadratic curve from edge to edge. Categories hang from it as diamond kites; featured stock hangs from it on wooden pegs at varied drops; on content lists it becomes a straight top rule with a kite mark pinned to it. Everything hanging sways on a slow pendulum and tugs when a pointer passes, a finger presses, or the page scrolls briskly.\n\nNight mode is the same shop after dark: an indigo-navy sky, the waves recoloured and edged with a faint aqua glow line, small twinkling stars in the open sky, and every kite colour lifted in lightness so it stays saturated against the dark. Density is relaxed and mobile-first; tap targets are 44px or more and the primary contact actions sit at thumb reach.",
+    "keyCharacteristics": [
+      "Aqua sky gradient with three drifting wave layers (from the visiting card) as the hero ground.",
+      "Navy ink, one teal action colour, kite-paper colours reserved for kites and category marks.",
+      "The manjha string (1.6px, sagging curve) as the structural rule and hanging rail.",
+      "Diamond kite silhouette as the recurring mark: category tags, bullets, success state.",
+      "Pendulum sway plus tug as the signature motion; all of it stops under reduced motion.",
+      "Poppins only, 400 to 700; Hindi and English set in the same face.",
+      "Full light and dark themes through the same token names."
+    ],
+    "rules": [
+      {
+        "name": "The One Teal Rule",
+        "body": "Action is teal and only teal. A second action colour exists only for WhatsApp, and it is WhatsApp's own green.",
+        "section": "colors"
+      },
+      {
+        "name": "The Kite Paper Rule",
+        "body": "Kite-paper colours fill kites, product art and category marks, and signal error, open and selection. They are never a section ground, a button, or running text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Same Names Rule",
+        "body": "Every colour is a CSS custom property redefined under `.dark`. Components reference the token, never a literal, so night mode costs nothing.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Poppins only, 400 to 700. No second family, no script or decorative face, no system display face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Bilingual Rule",
+        "body": "Hindi and English share the same face, sizes and weights. The language toggle swaps the copy, never the type scale.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Float Rule",
+        "body": "Every floating surface uses the same sky-float shadow token plus the aqua ring. No per-component shadow recipes.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do set every colour through its token so `.dark` can redefine it.",
+      "Do hang kites and featured stock from a manjha curve that runs edge to edge, and pin kite marks to straight 1.5px manjha rules on lists.",
+      "Do keep the WhatsApp and Call pair together, full width at the bottom of the phone viewport.",
+      "Do give every pressable a 0.97 press scale and a 2.5px teal focus outline at 3px offset.",
+      "Do stop wave drift, sway, drift and twinkle under reduced motion, and draw the string in its final state.",
+      "Do start entrance animations at 0.4 opacity so a stalled animation never hides content."
+    ],
+    "donts": [
+      "Don't use kite-paper colours for section grounds, buttons, or running text.",
+      "Don't add a second typeface or any weight outside 400 to 700.",
+      "Don't use hard offset shadows or per-component shadow recipes; use the sky-float token.",
+      "Don't delay navigation to finish a kite's tug animation."
+    ]
+  }
+}

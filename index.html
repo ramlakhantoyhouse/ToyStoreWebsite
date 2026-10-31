@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Ram Lakhan Toy House — Toys, Festival Items & Sports in Najafgarh</title>
+    <meta
+      name="description"
+      content="Toys, Holi colours, rakhis, Diwali decoration, kites and sports goods — wholesale and retail at Main Bazar, Near Delhi Gate, Najafgarh, New Delhi. Call or WhatsApp 95405 28086."
+    />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0d18" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="icon" type="image/png" href="/brand/favicon-rl.png" />
+    <link rel="apple-touch-icon" href="/brand/favicon-rl.png" />
+    <meta property="og:title" content="Ram Lakhan Toy House, Najafgarh" />
+    <meta property="og:description" content="Toys, festival items and sports goods — wholesale & retail. Near Delhi Gate, Main Bazar, Najafgarh." />
+    <meta property="og:image" content="/brand/og.png" />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Set theme before first paint so there is no flash of the wrong theme.
+      ;(function () {
+        var t = null
+        try { t = localStorage.getItem('rl-theme') } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.classList.toggle('dark', t === 'dark')
+        var l = null
+        try { l = localStorage.getItem('rl-lang') } catch (e) {}
+        if (l === 'hi') document.documentElement.lang = 'hi'
+      })()
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ram Lakhan Toy House",
+        "description": "Wholesaler and retailer of toys, festival items (Holi, Rakhi, Diwali decoration, kites) and sports goods.",
+        "telephone": "+91-9540528086",
+        "image": "/brand/og.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Shop No. 5-A/C, Main Bazar, Near Delhi Gate",
+          "addressLocality": "Najafgarh",
+          "addressRegion": "New Delhi",
+          "postalCode": "110043",
+          "addressCountry": "IN"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "09:00",
+            "closes": "21:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "09:00",
+            "closes": "14:00"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
