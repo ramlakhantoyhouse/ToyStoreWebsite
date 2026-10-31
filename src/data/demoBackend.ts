@@ -1,5 +1,5 @@
 import type { Backend, AdminUser } from './backend'
-import { starterCatalog } from './backend'
+import { SEASON_IN_USE, starterCatalog } from './backend'
 import type { Catalog, EnquiryRow } from './types'
 
 /*
@@ -57,6 +57,9 @@ export function createDemoBackend(): Backend {
       write(K.enquiries, rows.slice(0, 500))
     },
 
+    async isAdmin() {
+      return true
+    },
     async getUser() {
       return read<AdminUser | null>(K.user, null)
     },
@@ -118,7 +121,16 @@ export function createDemoBackend(): Backend {
     async saveSeason(s) {
       await wait()
       const c = cat()
-      c.seasons = c.seasons.map((x) => (x.id === s.id ? s : x))
+      const i = c.seasons.findIndex((x) => x.id === s.id)
+      if (i >= 0) c.seasons[i] = s
+      else c.seasons.push(s)
+      save(c)
+    },
+    async deleteSeason(id) {
+      await wait()
+      const c = cat()
+      if (c.products.some((p) => p.season === id)) throw new Error(SEASON_IN_USE)
+      c.seasons = c.seasons.filter((x) => x.id !== id)
       save(c)
     },
     async saveSettings(s) {

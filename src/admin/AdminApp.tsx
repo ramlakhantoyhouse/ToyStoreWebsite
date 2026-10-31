@@ -35,11 +35,25 @@ export default function AdminApp() {
 }
 
 function Gate() {
-  const { user, ready } = useAdmin()
+  const { backend, user, ready } = useAdmin()
   const loc = useLocation()
+  const [admin, setAdmin] = useState<boolean | null>(null)
+  useEffect(() => {
+    setAdmin(null)
+    if (!user) return
+    let alive = true
+    void backend.isAdmin().then((ok) => {
+      if (alive) setAdmin(ok)
+    })
+    return () => {
+      alive = false
+    }
+  }, [backend, user])
   if (!ready) return <FullSpinner />
   if (loc.pathname.startsWith('/admin/reset')) return <ResetPassword />
   if (!user) return <Login />
+  if (admin === null) return <FullSpinner />
+  if (!admin) return <NotAdmin email={user.email} onLogout={() => void backend.signOut()} />
   return (
     <Shell>
       <Suspense fallback={<div className="grid min-h-[50vh] place-items-center opacity-60">…</div>}>
@@ -56,6 +70,28 @@ function Gate() {
         </Routes>
       </Suspense>
     </Shell>
+  )
+}
+
+function NotAdmin({ email, onLogout }: { email: string; onLogout: () => void }) {
+  const L = useL()
+  return (
+    <div className="grid min-h-dvh place-items-center bg-[var(--chalk)] px-4 text-[var(--ink)]">
+      <div className="enter w-full max-w-md">
+        <Monogram className="size-14" />
+        <h1 className="mt-6 text-[2rem] leading-none font-bold tracking-[-0.05em]">{L('This account is not the shop owner yet', 'यह अकाउंट अभी मालिक के रूप में नहीं जुड़ा')}</h1>
+        <p className="ink-2 mt-4 text-[15.5px]">
+          {L('You are logged in as', 'आप लॉग इन हैं:')} <b className="text-[var(--ink)]">{email}</b>.{' '}
+          {L(
+            'Ask your helper to add this email to the admins list in Supabase (see ADMIN-SETUP.md, step "make the owner an admin"), then log in again.',
+            'अपने हेल्पर से कहें कि वो Supabase में इस ईमेल को admins लिस्ट में जोड़ दे (ADMIN-SETUP.md देखें), फिर दोबारा लॉग इन करें।',
+          )}
+        </p>
+        <button type="button" onClick={onLogout} className="btn btn-ink press mt-8 w-full">
+          {L('Log out', 'लॉग आउट')}
+        </button>
+      </div>
+    </div>
   )
 }
 

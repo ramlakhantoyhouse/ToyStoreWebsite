@@ -1,6 +1,10 @@
 import type { Bi } from '../i18n'
 
-export type SeasonId = 'holi' | 'summer' | 'rakhi' | 'kites' | 'diwali' | 'sports'
+// Seasons are open-ended: the owner can add new ones from Admin -> Seasons.
+export type SeasonId = string
+
+/** The six seasons the shop started with; they keep their CSS colours. */
+export const BUILTIN_SEASON_IDS = ['holi', 'summer', 'rakhi', 'kites', 'diwali', 'sports'] as const
 
 export type Season = {
   id: SeasonId
@@ -18,11 +22,14 @@ export type Season = {
   monthsOn: number[] // 1-12, lit on the year axis
   duo: [string, string] // duotone shadow, highlight
   photos: string[] // extra image files shown in its section
+  color?: string // hex fill for its colour block; built-ins fall back to CSS
+  sort?: number // order on the site and in the admin
 }
 
 export const seasons: Season[] = [
   {
     id: 'holi',
+    sort: 1,
     headline: { en: 'Holi is on the counter.', hi: 'होली का सामान आ गया है।' },
     monthsOn: [2, 3],
     duo: ['#3d0620', '#ffd0e3'],
@@ -42,6 +49,7 @@ export const seasons: Season[] = [
   },
   {
     id: 'summer',
+    sort: 2,
     headline: { en: 'Summer games are in.', hi: 'गर्मियों के खेल आ गए हैं।' },
     monthsOn: [4, 5, 6],
     duo: ['#03343b', '#c9f4f8'],
@@ -61,6 +69,7 @@ export const seasons: Season[] = [
   },
   {
     id: 'rakhi',
+    sort: 3,
     headline: { en: 'Rakhi is on the counter.', hi: 'राखी आ गई है।' },
     monthsOn: [7, 8],
     duo: ['#3d1300', '#ffd9bf'],
@@ -80,6 +89,7 @@ export const seasons: Season[] = [
   },
   {
     id: 'kites',
+    sort: 0,
     headline: { en: 'Kite season is here.', hi: 'पतंग का मौसम आ गया।' },
     monthsOn: [1, 7, 8],
     duo: ['#0a1f4a', '#d6e5ff'],
@@ -99,6 +109,7 @@ export const seasons: Season[] = [
   },
   {
     id: 'diwali',
+    sort: 4,
     headline: { en: 'Diwali is on the counter.', hi: 'दिवाली का सामान आ गया है।' },
     monthsOn: [10, 11],
     duo: ['#1d1b4b', '#ffd77a'],
@@ -118,6 +129,7 @@ export const seasons: Season[] = [
   },
   {
     id: 'sports',
+    sort: 5,
     headline: { en: 'Game on, all year.', hi: 'खेल, साल भर।' },
     monthsOn: [1,2,3,4,5,6,7,8,9,10,11,12],
     duo: ['#052e1f', '#c8f0de'],

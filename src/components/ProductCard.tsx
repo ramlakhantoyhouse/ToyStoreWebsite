@@ -4,6 +4,7 @@ import { useCatalog } from '../data/catalog'
 import type { Product } from '../data/products'
 import { OUT_OF_STOCK } from '../lib/useShop'
 import { Photo } from './DuoPhoto'
+import { isBuiltinSeason, seasonStyle } from '../lib/seasonColor'
 
 export function ProductCard({ p }: { p: Product }) {
   const { pick } = useLang()
@@ -25,9 +26,10 @@ export function ProductCard({ p }: { p: Product }) {
               {pick(OUT_OF_STOCK)}
             </span>
           )}
-          {season && ['holi', 'rakhi', 'kites', 'diwali'].includes(season.id) && (
+          {season && (['holi', 'rakhi', 'kites', 'diwali'].includes(season.id) || !isBuiltinSeason(season.id)) && (
             <span
               data-field={season.id}
+              style={seasonStyle(season)}
               className="absolute bottom-3 left-3 rounded-full bg-[var(--field)] px-3 py-1 text-[12.5px] font-medium text-[var(--ink)]"
             >
               {pick(season.name)}

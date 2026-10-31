@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useLang } from '../i18n'
 import { useCatalog } from '../data/catalog'
 import { FieldSection } from '../components/Field'
+import { seasonStyle } from '../lib/seasonColor'
 import { usePageTitle } from '../lib/usePageTitle'
 
 const D = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
@@ -12,7 +13,7 @@ export function NotFound() {
   usePageTitle(t('nf_title'))
   const { season } = useCatalog().currentSeason()
   return (
-    <FieldSection inset field={season.id} className="relative">
+    <FieldSection inset field={season.id} style={seasonStyle(season)} className="relative">
       <div className="mx-auto flex min-h-[70svh] max-w-[1400px] flex-col justify-center px-4 py-16 sm:px-10 sm:py-24">
         <p aria-hidden="true" className="enter -ml-[0.04em] text-[clamp(9rem,42vw,30rem)] leading-[0.8] font-bold tracking-[-0.07em] select-none">
           404

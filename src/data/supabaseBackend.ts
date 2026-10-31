@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient, type User } from '@supabase/supabase-js'
 import type { Backend, AdminUser } from './backend'
-import { defaultSettings, starterCatalog } from './backend'
+import { defaultSettings, SEASON_IN_USE, starterCatalog } from './backend'
+import { sortedSeasons } from './catalog'
 import type { Category, EnquiryRow, Product, Season, Settings } from './types'
 
 /*
@@ -36,8 +37,9 @@ export function createSupabaseBackend(url: string, key: string): Backend {
       const categories = (check(c) ?? []).map((r) => r.data as Category)
       const seasonsRows = (check(s) ?? []).map((r) => r.data as Season)
       const starter = starterCatalog()
-      // keep calendar order and any season missing from the table
-      const seasons = starter.seasons.map((d) => seasonsRows.find((x) => x.id === d.id) ?? d)
+      // every saved season (including added ones), plus starter seasons not yet in the table
+      const missing = starter.seasons.filter((d) => !seasonsRows.some((x) => x.id === d.id))
+      const seasons = sortedSeasons([...seasonsRows, ...missing])
       const settings = (check(st)?.data as Settings | undefined) ?? defaultSettings()
       return { products, categories, seasons, settings }
     },
@@ -49,6 +51,11 @@ export function createSupabaseBackend(url: string, key: string): Backend {
       check(await sb.from('enquiries').insert(row))
     },
 
+    async isAdmin() {
+      const { data, error } = await sb.rpc('is_admin')
+      if (error) return false
+      return data === true
+    },
     async getUser() {
       const { data } = await sb.auth.getUser()
       return toUser(data.user)
@@ -98,6 +105,11 @@ export function createSupabaseBackend(url: string, key: string): Backend {
     },
     async saveSeason(s) {
       check(await sb.from('seasons').upsert({ id: s.id, data: s }))
+    },
+    async deleteSeason(id) {
+      const rows = check(await sb.from('products').select('data')) ?? []
+      if (rows.some((r) => (r.data as Product).season === id)) throw new Error(SEASON_IN_USE)
+      check(await sb.from('seasons').delete().eq('id', id))
     },
     async saveSettings(s) {
       check(await sb.from('settings').upsert({ id: 1, data: s }))

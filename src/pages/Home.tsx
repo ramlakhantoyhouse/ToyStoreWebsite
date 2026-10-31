@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Phone } from 'lucide-react'
 import { useLang } from '../i18n'
 import { useCatalog } from '../data/catalog'
-import { calendarOrder, type Season } from '../config/seasons'
+import type { Season } from '../config/seasons'
+import { seasonStyle } from '../lib/seasonColor'
 import { directionsHref, shop } from '../config/shop'
 import { inStockFirst, useShop } from '../lib/useShop'
 import { FieldSection, type FieldId } from '../components/Field'
@@ -46,19 +47,47 @@ export function Home() {
 
 /* ---------------- Hero: toys in colour blocks ---------------- */
 
-type HeroBlock = { field: FieldId; file: string; label: { en: string; hi: string }; to: string; cls: string; r0: string; r1: string; d: number }
-
-const heroBlocks: HeroBlock[] = [
-  { field: 'red', file: 'toys-wooden', label: { en: 'Toys', hi: 'खिलौने' }, to: '/products?c=toys', cls: 'col-span-4 row-span-4', r0: '-7deg', r1: '-1.5deg', d: 120 },
-  { field: 'yellow', file: 'toy-elephant', label: { en: 'Pull-along toys', hi: 'खींचने वाले खिलौने' }, to: '/products/pull-along-elephant', cls: 'col-span-2 row-span-3', r0: '9deg', r1: '2deg', d: 220 },
-  { field: 'blue', file: 'football', label: { en: 'Sports', hi: 'खेल' }, to: '/products?c=sports', cls: 'col-span-2 row-span-3', r0: '-10deg', r1: '-1deg', d: 320 },
-  { field: 'green', file: 'toy-cars', label: { en: 'Wooden cars', hi: 'लकड़ी की गाड़ियां' }, to: '/products/wooden-cars', cls: 'col-span-2 row-span-2', r0: '8deg', r1: '1.5deg', d: 420 },
-  { field: 'pink', file: 'lattu', label: { en: 'Lattu', hi: 'लट्टू' }, to: '/products/wooden-lattu', cls: 'col-span-2 row-span-2', r0: '-6deg', r1: '-2deg', d: 520 },
+// Five fixed slots on the toy shelf; what fills them comes from the live catalogue.
+const heroSlots: { field: FieldId; cls: string; r0: string; r1: string; d: number }[] = [
+  { field: 'red', cls: 'col-span-4 row-span-4', r0: '-7deg', r1: '-1.5deg', d: 120 },
+  { field: 'yellow', cls: 'col-span-2 row-span-3', r0: '9deg', r1: '2deg', d: 220 },
+  { field: 'blue', cls: 'col-span-2 row-span-3', r0: '-10deg', r1: '-1deg', d: 320 },
+  { field: 'green', cls: 'col-span-2 row-span-2', r0: '8deg', r1: '1.5deg', d: 420 },
+  { field: 'pink', cls: 'col-span-2 row-span-2', r0: '-6deg', r1: '-2deg', d: 520 },
 ]
+
+type HeroItem = { key: string; file: string; label: { en: string; hi: string }; to: string }
+
+/**
+ * Big slot: the Toys category (or the first category). Small slots: in-stock
+ * "Popular" products first, then other in-stock products, then categories.
+ * So removing or hiding a product in /admin removes it here too.
+ */
+function useHeroItems(): HeroItem[] {
+  const { products, categories } = useCatalog()
+  const lead = categories.find((c) => c.id === 'toys') ?? categories[0]
+  const items: HeroItem[] = []
+  if (lead) items.push({ key: `c-${lead.id}`, file: lead.image, label: lead.name, to: `/products?c=${lead.id}` })
+  const usable = products.filter((p) => p.inStock !== false && p.images[0])
+  // it's a toy house: popular toys & sports first, then other popular items, then the rest
+  const rank = (p: (typeof usable)[number]) => (p.featured ? 0 : 2) + (p.category === 'toys' || p.category === 'sports' ? 0 : 1)
+  const ordered = [...usable].sort((a, b) => rank(a) - rank(b))
+  for (const p of ordered) {
+    if (items.length >= heroSlots.length) break
+    if (items.some((x) => x.file === p.images[0])) continue
+    items.push({ key: `p-${p.slug}`, file: p.images[0], label: p.name, to: `/products/${p.slug}` })
+  }
+  for (const c of categories) {
+    if (items.length >= heroSlots.length) break
+    if (items.some((x) => x.key === `c-${c.id}` || x.file === c.image)) continue
+    items.push({ key: `c-${c.id}`, file: c.image, label: c.name, to: `/products?c=${c.id}` })
+  }
+  return items
+}
 
 function Hero() {
   const { t, pick } = useLang()
-  const { bySlug } = useCatalog()
+  const items = useHeroItems()
   const { open, todayHours, wa, tel } = useShop()
   return (
     <section className="mx-auto grid max-w-[1400px] items-center gap-12 px-4 pt-6 pb-16 sm:px-10 lg:min-h-[min(calc(100svh-72px),860px)] lg:grid-cols-[1fr_1.05fr] lg:gap-14 lg:pt-4 lg:pb-20">
@@ -88,23 +117,25 @@ function Hero() {
 
       {/* the toy shelf: five blocks tumble in and settle */}
       <div className="grid aspect-square grid-cols-6 grid-rows-6 gap-3 sm:gap-4 lg:aspect-[1/0.95]">
-        {heroBlocks.map((b) => (
-          <Tilt key={b.file} className={`${b.cls}`}>
-            <Link
-              // a product the owner removed falls back to the full shop
-              to={b.to.startsWith('/products/') && !bySlug(b.to.slice(10)) ? '/products' : b.to}
-              viewTransition
-              data-field={b.field}
-              className="tumble press group block-shadow relative block h-full overflow-hidden rounded-[30px] bg-[var(--field)] p-2.5 text-[var(--ink)] no-underline sm:rounded-[36px] sm:p-3"
-              style={{ '--d': `${b.d}ms`, '--r0': b.r0, '--r1': b.r1 } as React.CSSProperties}
-            >
-              <Photo file={b.file} alt={pick(b.label)} eager className="h-full rounded-[22px] sm:rounded-[28px]" />
-              <span className="absolute bottom-4 left-4 rounded-full bg-[var(--field)] px-3 py-1 text-[13px] font-semibold sm:bottom-5 sm:left-5 sm:text-[14px]">
-                {pick(b.label)}
-              </span>
-            </Link>
-          </Tilt>
-        ))}
+        {items.map((it, i) => {
+          const b = heroSlots[i]
+          return (
+            <Tilt key={it.key} className={b.cls}>
+              <Link
+                to={it.to}
+                viewTransition
+                data-field={b.field}
+                className="tumble press group block-shadow relative block h-full overflow-hidden rounded-[30px] bg-[var(--field)] p-2.5 text-[var(--ink)] no-underline sm:rounded-[36px] sm:p-3"
+                style={{ '--d': `${b.d}ms`, '--r0': b.r0, '--r1': b.r1 } as React.CSSProperties}
+              >
+                <Photo file={it.file} alt={pick(it.label)} eager className="h-full rounded-[22px] sm:rounded-[28px]" />
+                <span className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] truncate rounded-full bg-[var(--field)] px-3 py-1 text-[13px] font-semibold sm:bottom-5 sm:left-5 sm:text-[14px]">
+                  {pick(it.label)}
+                </span>
+              </Link>
+            </Tilt>
+          )
+        })}
       </div>
     </section>
   )
@@ -195,10 +226,9 @@ function Categories() {
 function Shelf() {
   const { t } = useLang()
   const { products } = useCatalog()
-  const SHELF = ['wooden-toys', 'pull-along-elephant', 'wooden-cars', 'wooden-lattu', 'carrom-board', 'cricket-bat-ball', 'football', 'badminton-set']
-  const picked = SHELF.map((slug) => products.find((p) => p.slug === slug && p.inStock !== false)).filter((p) => !!p)
-  // if the owner removed some of these, top up with other in-stock products
-  const list = [...picked, ...inStockFirst(products).filter((p) => !picked.includes(p) && p.inStock !== false)].slice(0, 8)
+  // The owner picks these with the "Popular" switch in /admin; topped up with other in-stock products.
+  const inStock = inStockFirst(products).filter((p) => p.inStock !== false)
+  const list = [...inStock.filter((p) => p.featured), ...inStock.filter((p) => !p.featured)].slice(0, 8)
   return (
     <FieldSection field="chalk" className="pb-24 sm:pb-32">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-10">
@@ -218,8 +248,7 @@ function Shelf() {
 
 function SeasonsRow({ current, upcoming, onAsk }: { current: string; upcoming: boolean; onAsk: (s: Season) => void }) {
   const { t, pick } = useLang()
-  const { seasonById } = useCatalog()
-  const order = calendarOrder.map((id) => seasonById(id)).filter((s) => !!s)
+  const { seasons: order } = useCatalog()
   return (
     <section className="pb-24 sm:pb-32">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-end justify-between gap-4 px-4 sm:px-10">
@@ -236,7 +265,7 @@ function SeasonsRow({ current, upcoming, onAsk }: { current: string; upcoming: b
           const isNow = s.id === current
           return (
             <li key={s.id} className="w-[78%] shrink-0 snap-start sm:w-[340px]">
-              <div data-field={s.id} className="flex h-full flex-col rounded-[34px] bg-[var(--field)] p-3 text-[var(--ink)]">
+              <div data-field={s.id} style={seasonStyle(s)} className="flex h-full flex-col rounded-[34px] bg-[var(--field)] p-3 text-[var(--ink)]">
                 <Link to={`/seasons/${s.id}`} viewTransition className="press group relative block no-underline">
                   <Photo file={s.image} alt={pick(s.alt)} className="aspect-[4/3] rounded-[26px]" />
                   {(isNow || s.allYear) && (

@@ -21,6 +21,8 @@ export interface Backend {
 
   // auth (owner only)
   getUser(): Promise<AdminUser | null>
+  /** true when the logged-in account is listed in the admins table */
+  isAdmin(): Promise<boolean>
   onAuthChange(cb: (u: AdminUser | null) => void): () => void
   signIn(email: string, password: string): Promise<void>
   signOut(): Promise<void>
@@ -33,6 +35,8 @@ export interface Backend {
   saveCategory(c: Category, previousId?: string): Promise<void>
   deleteCategory(id: string): Promise<void>
   saveSeason(s: Season): Promise<void>
+  /** refuses while any product still uses the season */
+  deleteSeason(id: string): Promise<void>
   saveSettings(s: Settings): Promise<void>
   uploadPhoto(file: Blob, nameHint: string): Promise<string> // returns public URL
   deletePhoto(url: string): Promise<void>
@@ -46,6 +50,8 @@ export interface Backend {
   isEmpty(): Promise<boolean>
   importStarter(): Promise<void>
 }
+
+export const SEASON_IN_USE = 'Move the products in this season to another season first.'
 
 export function defaultSettings(): Settings {
   const day = (dow: number) => ({ dow, open: shop.hours.open, close: dow === 3 ? shop.hours.wedClose : shop.hours.close })
@@ -82,7 +88,8 @@ let instance: Promise<Backend> | null = null
 /** The configured backend, created once. */
 export function getBackend(): Promise<Backend> {
   if (!instance) {
-    const url = import.meta.env.VITE_SUPABASE_URL as string | undefined
+    // Accept a pasted Data API URL too: keep only https://<project>.supabase.co
+    const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim().replace(/\/(rest|auth|storage)\/v1\/?.*$/, '').replace(/\/+$/, '')
     const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
     instance =
       url && key

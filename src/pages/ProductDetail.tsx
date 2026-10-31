@@ -6,6 +6,7 @@ import type { Product } from '../data/products'
 import { useCatalog } from '../data/catalog'
 import { inStockFirst, useShop } from '../lib/useShop'
 import { FieldSection } from '../components/Field'
+import { isBuiltinSeason, seasonStyle } from '../lib/seasonColor'
 import { Photo } from '../components/DuoPhoto'
 import { ProductCard } from '../components/ProductCard'
 import { EnquiryDrawer } from '../components/EnquiryDrawer'
@@ -42,11 +43,13 @@ function ProductView({ p }: { p: Product }) {
   const related = inStockFirst(products.filter((x) => x.category === p.category && x.slug !== p.slug)).slice(0, 4)
   const out = p.inStock === false
   const askLabel = out ? pick(ASK_BACK) : t('enquire_wa')
+  // festival and owner-added seasons paint the product's block
+  const onSeason = !!season && (['holi', 'rakhi', 'kites', 'diwali'].includes(season.id) || !isBuiltinSeason(season.id))
 
   return (
     <>
       {/* The product sits on its season's field */}
-      <FieldSection inset field={['holi', 'rakhi', 'kites', 'diwali'].includes(p.season) ? p.season : 'card'} className="relative">
+      <FieldSection inset field={onSeason ? p.season : 'card'} style={onSeason ? seasonStyle(season) : undefined} className="relative">
         <div className="mx-auto max-w-[1400px] px-4 pt-4 pb-16 sm:px-10 sm:pt-8 lg:pb-28">
           <Link
             to="/products"

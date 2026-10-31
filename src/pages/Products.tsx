@@ -5,6 +5,7 @@ import { useLang } from '../i18n'
 import { useCatalog } from '../data/catalog'
 import { inStockFirst, useShop } from '../lib/useShop'
 import { FieldSection } from '../components/Field'
+import { seasonStyle } from '../lib/seasonColor'
 import { ProductCard } from '../components/ProductCard'
 import { WhatsAppIcon } from '../components/Icons'
 import { usePageTitle } from '../lib/usePageTitle'
@@ -43,7 +44,7 @@ export function Products() {
   return (
     <>
       {/* Head: the chosen season floods the top; indigo when browsing everything */}
-      <FieldSection inset field={sel ? sel.id : 'indigo'}>
+      <FieldSection inset field={sel ? sel.id : 'indigo'} style={seasonStyle(sel)}>
         <div className="mx-auto grid max-w-[1400px] gap-10 px-4 pt-10 pb-14 sm:px-10 sm:pt-16 sm:pb-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16 lg:pt-20 lg:pb-24">
           <div>
             <h1 className="enter text-[clamp(3.6rem,12vw,10rem)] leading-[0.88] font-bold tracking-[-0.06em]">
@@ -101,6 +102,7 @@ export function Products() {
                   <span
                     aria-hidden="true"
                     data-field={s.id}
+                    style={seasonStyle(s)}
                     className="size-2.5 shrink-0 rounded-full bg-[var(--field)] shadow-[0_0_0_1.5px_color-mix(in_srgb,currentColor_25%,transparent)]"
                   />
                   {pick(s.name)}

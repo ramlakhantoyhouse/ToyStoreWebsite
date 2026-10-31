@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { getBackend, starterCatalog } from './backend'
 import type { Catalog, DayHours, Settings } from './types'
-import type { Season, SeasonId } from '../config/seasons'
+import { calendarOrder, type Season } from '../config/seasons'
 
 type Ctx = Catalog & {
   loading: boolean
@@ -53,14 +53,16 @@ export function useCatalog() {
     [c.products],
   )
   const categories = useMemo(() => [...c.categories].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)), [c.categories])
+  const seasons = useMemo(() => sortedSeasons(c.seasons), [c.seasons])
   return {
     ...c,
     products: visible,
     categories,
+    seasons,
     bySlug: (slug: string) => visible.find((p) => p.slug === slug),
     catById: (id: string) => categories.find((x) => x.id === id),
-    seasonById: (id: string) => c.seasons.find((s) => s.id === id),
-    currentSeason: () => currentSeasonFrom(c.seasons),
+    seasonById: (id: string) => seasons.find((s) => s.id === id),
+    currentSeason: () => currentSeasonFrom(seasons),
     isOpenNow: () => isOpenFrom(c.settings),
     todayHours: () => hoursFor(c.settings, istNow().getDay()),
   }
@@ -102,7 +104,18 @@ export function fmtHours(h: DayHours | undefined, lang: 'en' | 'hi') {
   return `${fmtTime(h.open, lang)} – ${fmtTime(h.close, lang)}`
 }
 
-const PRIORITY: SeasonId[] = ['diwali', 'holi', 'rakhi', 'kites', 'summer']
+/** Site order: the saved sort, else calendar order, new seasons last. */
+export function sortedSeasons(seasons: Season[]): Season[] {
+  const rank = (s: Season) => {
+    if (typeof s.sort === 'number') return s.sort
+    const i = calendarOrder.indexOf(s.id)
+    return i >= 0 ? i : 999
+  }
+  return [...seasons].sort((a, b) => rank(a) - rank(b))
+}
+
+// Festival seasons win over kites when windows overlap (Rakhi beats August kites).
+const PRIORITY: string[] = ['diwali', 'holi', 'rakhi', 'kites', 'summer']
 
 function inWindow(d: Date, [sm, sd, em, ed]: [number, number, number, number]) {
   const v = (d.getMonth() + 1) * 100 + d.getDate()
@@ -111,17 +124,20 @@ function inWindow(d: Date, [sm, sd, em, ed]: [number, number, number, number]) {
 
 export function currentSeasonFrom(seasons: Season[], now = new Date()): { season: Season; upcoming: boolean } {
   const d = istNow(now)
-  const by = (id: SeasonId) => seasons.find((s) => s.id === id)
-  for (const id of PRIORITY) {
-    const s = by(id)
-    if (s?.windows.some((w) => inWindow(d, w))) return { season: s, upcoming: false }
+  // dated seasons: built-ins by festival priority, then added seasons by sort
+  const sorted = sortedSeasons(seasons)
+  const dated = sorted.filter((s) => !s.allYear && s.windows.length > 0)
+  const pr = (s: Season) => {
+    const i = PRIORITY.indexOf(s.id)
+    return i >= 0 ? i : PRIORITY.length + sorted.indexOf(s)
   }
+  dated.sort((a, b) => pr(a) - pr(b))
+  const on = (day: Date) => dated.find((s) => s.windows.some((w) => inWindow(day, w)))
+  const today = on(d)
+  if (today) return { season: today, upcoming: false }
   for (let i = 1; i <= 366; i++) {
-    const f = new Date(d.getTime() + i * 86400000)
-    for (const id of PRIORITY) {
-      const s = by(id)
-      if (s?.windows.some((w) => inWindow(f, w))) return { season: s, upcoming: true }
-    }
+    const s = on(new Date(d.getTime() + i * 86400000))
+    if (s) return { season: s, upcoming: true }
   }
-  return { season: by('sports') ?? seasons[0], upcoming: false }
+  return { season: sorted.find((s) => s.allYear) ?? sorted[0], upcoming: false }
 }

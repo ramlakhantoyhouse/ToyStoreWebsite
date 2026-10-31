@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useLang } from '../i18n'
-import { calendarOrder } from '../config/seasons'
+import { seasonStyle } from '../lib/seasonColor'
 import { useCatalog } from '../data/catalog'
 import { inStockFirst } from '../lib/useShop'
 import { FieldSection } from '../components/Field'
@@ -20,7 +20,7 @@ const D = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
 export function Seasons() {
   const { t, pick } = useLang()
   usePageTitle(t('seasons_title'), t('seasons_sub'))
-  const { currentSeason, seasonById } = useCatalog()
+  const { currentSeason, seasons } = useCatalog()
   const now = currentSeason()
 
   return (
@@ -35,16 +35,15 @@ export function Seasons() {
       </FieldSection>
 
       <ul className="mx-auto grid max-w-[1400px] gap-4 px-4 pb-28 sm:grid-cols-2 sm:gap-5 sm:px-10 lg:grid-cols-3" role="list">
-        {calendarOrder.map((id) => {
-          const s = seasonById(id)
-          if (!s) return null
+        {seasons.map((s) => {
           const status = s.allYear ? t('all_year') : s.id === now.season.id ? (now.upcoming ? t('coming_up') : t('now_in')) : null
           return (
-            <li key={id} className="reveal">
+            <li key={s.id} className="reveal">
               <Link
                 to={`/seasons/${s.id}`}
                 viewTransition
                 data-field={s.id}
+                style={seasonStyle(s)}
                 className="press group flex h-full flex-col rounded-[34px] bg-[var(--field)] p-3 text-[var(--ink)] no-underline"
               >
                 <span className="relative block">
@@ -86,7 +85,7 @@ export function SeasonDetail() {
 
   return (
     <>
-      <FieldSection inset field={s.id}>
+      <FieldSection inset field={s.id} style={seasonStyle(s)}>
         <div className="mx-auto max-w-[1400px] px-4 pt-6 pb-20 sm:px-10 sm:pt-8 sm:pb-28">
           <Link
             to="/seasons"
