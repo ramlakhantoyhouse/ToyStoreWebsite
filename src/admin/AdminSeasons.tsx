@@ -8,6 +8,7 @@ import { inkFor, isBuiltinSeason, SEASON_SWATCHES, seasonStyle } from '../lib/se
 import { useLang, type Bi } from '../i18n'
 import { BiInput, Confirm, PageHead, Panel, Select, Spinner, TextInput, Toggle, useAdmin, useL, useUnsavedWarning } from './ui'
 import { CoverPhoto } from './CoverPhoto'
+import { SeasonProducts } from './SeasonProducts'
 
 type Win = [number, number, number, number]
 
@@ -89,8 +90,8 @@ export default function AdminSeasons() {
     const n = count(s.id)
     if (n > 0)
       return L(
-        `"${s.name.en}" still has ${n} product(s). Move them to another season first, then delete.`,
-        `"${s.name.hi || s.name.en}" में अभी ${n} सामान हैं। पहले उन्हें दूसरे मौसम में डालें, फिर हटाएँ।`,
+        `"${s.name.en}" still has ${n} product(s), listed below. Move them to another season or delete them here, then delete the season.`,
+        `"${s.name.hi || s.name.en}" में अभी ${n} सामान हैं (नीचे देखें)। उन्हें दूसरे मौसम में डालें या यहीं हटाएँ, फिर मौसम हटाएँ।`,
       )
     const base = L('It will disappear from the website.', 'यह वेबसाइट से हट जाएगा।')
     if (isBuiltinSeason(s.id))
@@ -173,12 +174,15 @@ export default function AdminSeasons() {
         open={!!toDelete}
         title={L('Delete this season?', 'यह मौसम हटाएँ?')}
         body={toDelete ? deleteBody(toDelete) : undefined}
-        confirmLabel={L('Delete', 'हटाएँ')}
+        confirmLabel={L('Delete season', 'मौसम हटाएँ')}
         danger
         busy={deleting}
         onConfirm={() => void remove()}
         onClose={() => setToDelete(null)}
-      />
+        confirmDisabled={!!toDelete && count(toDelete.id) > 0}
+      >
+        {toDelete && count(toDelete.id) > 0 && <SeasonProducts seasonId={toDelete.id} />}
+      </Confirm>
     </div>
   )
 }
@@ -352,7 +356,8 @@ function SeasonEditor({
   const L = useL()
   const { lang } = useLang()
   const { backend } = useAdmin()
-  const { reload } = useCatalog()
+  const { reload, products } = useCatalog()
+  const productCount = products.filter((p) => p.season === season.id).length
   const [draft, setDraft] = useState<Season>(season)
   const [saved, setSaved] = useState(() => JSON.stringify(season))
   const [newItem, setNewItem] = useState<Bi>({ en: '', hi: '' })
@@ -545,6 +550,17 @@ function SeasonEditor({
             </>
           )}
         </div>
+
+        <details className="group rounded-[18px] bg-[var(--chalk)] p-3">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-1 text-[15px] font-semibold">
+            {L(`Products in this season (${productCount})`, `इस मौसम का सामान (${productCount})`)}
+            <span className="ink-2 text-[13.5px] font-medium group-open:hidden">{L('Show', 'दिखाएँ')}</span>
+            <span className="ink-2 hidden text-[13.5px] font-medium group-open:inline">{L('Hide', 'छिपाएँ')}</span>
+          </summary>
+          <div className="mt-3">
+            <SeasonProducts seasonId={season.id} />
+          </div>
+        </details>
 
         <div className="flex flex-wrap items-center gap-3 border-t-2 border-[var(--chalk)] pt-4">
           <button type="button" onClick={() => void save()} disabled={!dirty || saving} className="btn btn-ink press min-w-40 disabled:opacity-40">

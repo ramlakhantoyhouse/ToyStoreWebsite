@@ -224,7 +224,11 @@ export function Confirm({
   busy,
   onConfirm,
   onClose,
+  children,
+  confirmDisabled,
 }: {
+  children?: ReactNode
+  confirmDisabled?: boolean
   open: boolean
   title: string
   body?: string
@@ -247,7 +251,7 @@ export function Confirm({
   // Portal to <body>: an animated/transformed parent must never trap the dialog inside the page.
   return createPortal(
     <div className="fixed inset-0 z-[60] grid place-items-end bg-[rgb(10_9_30_/_0.5)] p-3 sm:place-items-center" onClick={onClose}>
-      <div role="alertdialog" aria-modal="true" aria-label={title} className="enter w-full max-w-sm rounded-[28px] bg-[var(--chalk)] p-6" onClick={(e) => e.stopPropagation()}>
+      <div role="alertdialog" aria-modal="true" aria-label={title} className={`enter flex max-h-[90dvh] w-full flex-col rounded-[28px] bg-[var(--chalk)] p-6 ${children ? 'max-w-lg' : 'max-w-sm'}`} onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between gap-3">
           <h2 className="text-[20px] font-bold tracking-[-0.03em]">{title}</h2>
           <button type="button" onClick={onClose} aria-label={L('Close', 'बंद करें')} className="press -mt-1 -mr-2 grid size-10 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-[var(--ink)]">
@@ -255,11 +259,12 @@ export function Confirm({
           </button>
         </div>
         {body && <p className="ink-2 mt-2 text-[15px]">{body}</p>}
-        <div className="mt-6 grid grid-cols-2 gap-2">
+        {children && <div className="-mx-1 mt-4 min-h-0 overflow-y-auto px-1">{children}</div>}
+        <div className="mt-6 grid shrink-0 grid-cols-2 gap-2">
           <button type="button" onClick={onClose} className="btn btn-line press">
             {L('Cancel', 'रहने दें')}
           </button>
-          <button type="button" onClick={onConfirm} disabled={busy} className={`btn press ${danger ? 'bg-[var(--danger)] text-white' : 'btn-ink'}`}>
+          <button type="button" onClick={onConfirm} disabled={busy || confirmDisabled} className={`btn press disabled:opacity-40 ${danger ? 'bg-[var(--danger)] text-white' : 'btn-ink'}`}>
             {busy ? <Spinner /> : confirmLabel}
           </button>
         </div>
