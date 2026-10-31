@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ArrowUpRight, Phone } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Phone, Truck } from 'lucide-react'
 import { useLang } from '../i18n'
 import type { Product } from '../data/products'
 import { useCatalog } from '../data/catalog'
@@ -133,6 +133,10 @@ function ProductView({ p }: { p: Product }) {
               )}
 
               <p className="mt-9 max-w-[30rem] text-[clamp(1.15rem,1.8vw,1.4rem)] leading-snug font-medium tracking-[-0.02em]">{t('price_note')}</p>
+              <p className="mt-4 flex max-w-[30rem] items-start gap-3 text-[15.5px] font-medium">
+                <Truck className="mt-0.5 size-5 shrink-0" strokeWidth={2} />
+                {t('deliv_line')}
+              </p>
 
               <div className="mt-8 hidden flex-wrap gap-3 md:flex">
                 <button type="button" onClick={() => setOpen(true)} className="btn btn-ink press">

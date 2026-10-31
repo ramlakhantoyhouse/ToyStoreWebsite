@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, Phone } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Phone, Truck } from 'lucide-react'
 import { useLang } from '../i18n'
 import { useCatalog } from '../data/catalog'
 import type { Season } from '../config/seasons'
@@ -30,6 +30,7 @@ export function Home() {
       <Marquee />
       <Categories />
       <Shelf />
+      <Delivery />
       <SeasonsRow current={now.season.id} upcoming={now.upcoming} onAsk={setAsk} />
       <Wholesale />
       <Visit />
@@ -296,6 +297,48 @@ function SeasonsRow({ current, upcoming, onAsk }: { current: string; upcoming: b
 }
 
 /* ---------------- Wholesale ---------------- */
+
+/* ---------------- Delivery within Delhi (ordered on call, no online payment) ---------------- */
+
+function Delivery() {
+  const { t } = useLang()
+  const { wa, tel } = useShop()
+  const steps = (['deliv_1', 'deliv_2', 'deliv_3'] as const).map((k, i) => ({ k, field: (['yellow', 'green', 'red'] as const)[i] }))
+  return (
+    <section className="px-4 pb-24 sm:px-10 sm:pb-32">
+      <div data-field="blue" className="reveal mx-auto grid max-w-[1400px] gap-10 overflow-hidden rounded-[40px] bg-[var(--field)] p-8 text-[var(--ink)] sm:p-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-20">
+        <div>
+          <span data-field="yellow" className="grid size-16 place-items-center rounded-[20px] bg-[var(--field)] text-[var(--ink)]">
+            <Truck className="size-8" strokeWidth={2} />
+          </span>
+          <h2 className="mt-7 text-[clamp(2.2rem,5vw,4.6rem)] leading-[0.95] font-bold tracking-[-0.05em]">{t('deliv_title')}</h2>
+          <p className="mt-5 max-w-lg text-[17px] opacity-90 sm:text-[18px]">{t('deliv_sub')}</p>
+        </div>
+        <div>
+          <ol className="grid gap-3" role="list">
+            {steps.map(({ k, field }, i) => (
+              <li key={k} className="flex items-center gap-4 rounded-[22px] bg-[color-mix(in_srgb,var(--ink)_12%,transparent)] p-4 text-[17px] font-semibold">
+                <span data-field={field} className="grid size-11 shrink-0 place-items-center rounded-[14px] bg-[var(--field)] text-[16px] text-[var(--ink)] tabular-nums">
+                  {i + 1}
+                </span>
+                {t(k)}
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 text-[15px] font-medium opacity-90">{t('deliv_note')}</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href={wa('Namaste! I want to order for home delivery in Delhi.')} target="_blank" rel="noreferrer" className="btn btn-ink press flex-1 sm:flex-none">
+              <WhatsAppIcon /> {t('wa_us')}
+            </a>
+            <a href={tel} className="btn btn-line press flex-1 sm:flex-none">
+              <Phone className="size-[18px]" strokeWidth={2} /> {t('call')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function Wholesale() {
   const { t } = useLang()

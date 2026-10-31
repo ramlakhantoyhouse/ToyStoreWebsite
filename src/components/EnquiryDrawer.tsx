@@ -20,6 +20,7 @@ export function EnquiryDrawer({ open, onOpenChange, product, variant, season }: 
   const { t } = useLang()
   const { tel, whatsapp } = useShop()
   const [sent, setSent] = useState(false)
+  const [delivery, setDelivery] = useState<'home' | 'pickup'>('home')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
@@ -46,7 +47,10 @@ export function EnquiryDrawer({ open, onOpenChange, product, variant, season }: 
       name,
       mobile,
       area,
-      note: String(f.get('note') || '').trim(),
+      // how the customer wants it travels in the note, so the WhatsApp message and the inbox both show it
+      note: [delivery === 'home' ? 'Delivery: home delivery (Delhi)' : 'Delivery: pickup from shop', String(f.get('note') || '').trim()]
+        .filter(Boolean)
+        .join(' · '),
       website: String(f.get('website') || ''),
     }, whatsapp)
     toast.success(t('toast_saved'))
@@ -101,6 +105,25 @@ export function EnquiryDrawer({ open, onOpenChange, product, variant, season }: 
                   <Field name="mobile" label={t('f_mobile')} type="tel" inputMode="numeric" autoComplete="tel-national" maxLength={14} error={errors.mobile} />
                   <Field name="area" label={t('f_area')} placeholder={t('f_area_ph')} autoComplete="street-address" error={errors.area} />
                   <Field name="qty" label={t('f_qty')} placeholder="1" />
+                  <fieldset className="m-0 border-0 p-0">
+                    <legend className="mb-1.5 text-sm font-medium">{t('deliv_ask')}</legend>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {(['home', 'pickup'] as const).map((v) => (
+                        <label
+                          key={v}
+                          className={`press flex min-h-12 cursor-pointer items-center gap-3 rounded-[14px] px-4 text-[15px] font-medium ${
+                            delivery === v ? 'bg-[var(--ink)] text-[var(--chalk)]' : 'bg-[var(--card)] text-[var(--ink)]'
+                          }`}
+                        >
+                          <input type="radio" name="delivery" value={v} checked={delivery === v} onChange={() => setDelivery(v)} className="sr-only" />
+                          <span aria-hidden="true" className={`grid size-5 shrink-0 place-items-center rounded-full border-2 ${delivery === v ? 'border-[var(--chalk)]' : 'border-[color-mix(in_srgb,var(--ink)_40%,transparent)]'}`}>
+                            {delivery === v && <span className="size-2.5 rounded-full bg-[var(--chalk)]" />}
+                          </span>
+                          {t(v === 'home' ? 'deliv_opt_home' : 'deliv_opt_pickup')}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
                   <Field name="note" label={t('f_note')} multiline />
                   <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
                   <button type="submit" className="btn btn-wa press mt-1 w-full">
